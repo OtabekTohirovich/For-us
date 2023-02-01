@@ -1,6 +1,5 @@
 import { Stack, Box, Container, Typography } from "@mui/material";
 import { useState, useEffect} from "react";
-// import { Link } from "react-router-dom";
 import { collors } from "../../constants/collors";
 import { Category, Vedios } from "../";
 import { ApiService } from "../../api/index";
@@ -12,8 +11,12 @@ const Main = () => {
   const selectedCategoryHandelar = (category) => setSelectedCategory(category);
 
   useEffect(()=>{
-    ApiService.featching(`search?part=snippet&q=New`).then(data=> setvedios(data.items))
+    ApiService.featching(`search?part=snippet&q=${selectedCategory}`).then(data=> setvedios(data.items))
   }, [])
+
+  useEffect(()=>{
+    ApiService.featching(`search?part=snippet&q=${selectedCategory}`).then(data=> setvedios(data.items))
+  }, [selectedCategory])
 
 
   return (

@@ -11,12 +11,19 @@ import moment from "moment/moment";
 import { CheckCircle } from "@mui/icons-material";
 const Vediocard = ({ vedio }) => {
   return (
-    <Card sx={{ width: {xs: '100%', sm:'350px', md: '320px'}, boxShadow: "none", borderRadius: 0 }}>
+    // key={vedio.id.videoId}
+    <Card
+      sx={{
+        width: { xs: "100%", sm: "350px", md: "320px" },
+        boxShadow: "none",
+        borderRadius: 0,
+      }}
+    >
       <CardMedia
         image={vedio?.snippet?.thumbnails?.high?.url}
         alt={vedio?.snippet?.title}
         sx={{
-          width: {xs: '100%', sm:'350px', md: '320px'},
+          width: { xs: "100%", sm: "350px", md: "320px" },
           height: "180px",
           borderRadius: "1rem",
           objectFit: "cover",

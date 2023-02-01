@@ -1,8 +1,37 @@
-import { Link } from "react-router-dom"
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { ApiService } from "../../api";
+import { collors } from "../../constants/collors";
+import { Box, Container, Typography } from "@mui/material";
+import { Vedios } from "../";
 const Search = () => {
-  return (
-    <Link to={'/search/:id'}>Search</Link>
-  )
-}
+  const [value, setValue] = useState([]);
 
-export default Search
+  const { id } = useParams();
+  console.log(id);
+  useEffect(() => {
+    try {
+      ApiService.featching(`search?part=snippet&q=${id}`).then((data) =>
+        setValue(data.items)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }, [id]);
+  console.log(value);
+  return (
+    <Box p={2} sx={{hight:'90vh'}}>
+      <Container maxWidth={'90%'}>
+        <Typography variant="h5" fontFamily={'bold'} mb={2}>
+          Search results from <span style={{color: collors.secondary}}>{id}</span> vedios
+        </Typography>
+        <Vedios vedios={value} />
+      </Container>
+    </Box>
+  )
+  
+};
+
+
+
+export default Search;

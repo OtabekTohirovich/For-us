@@ -8,5 +8,7 @@ export { default as Vediodetails } from './VedioDetails/vedio-details'
 export { default as Category } from './category/category'
 export { default as Vedios } from './vedios/vedios'
 export { default as Vediocard } from './vedio-card/vediocard'
+export { default as ChanelCard } from './chenal-Card/chanelCard'
+export { default as Loader } from './loader/loader'
 
 
