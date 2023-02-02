@@ -9,7 +9,9 @@ import {
 import { collors } from "../../constants/collors";
 import moment from "moment/moment";
 import { CheckCircle } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 const Vediocard = ({ vedio }) => {
+  console.log(vedio.id.videoId);
   return (
     // key={vedio.id.videoId}
     <Card
@@ -19,17 +21,20 @@ const Vediocard = ({ vedio }) => {
         borderRadius: 0,
       }}
     >
-      <CardMedia
-        image={vedio?.snippet?.thumbnails?.high?.url}
-        alt={vedio?.snippet?.title}
-        sx={{
-          width: { xs: "100%", sm: "350px", md: "320px" },
-          height: "180px",
-          borderRadius: "1rem",
-          objectFit: "cover",
-          overflow: "hidden",
-        }}
-      />
+      <Link to={`/vedio/${vedio.id.videoId}`}>
+        <CardMedia
+          image={vedio?.snippet?.thumbnails?.high?.url}
+          alt={vedio?.snippet?.title}
+          sx={{
+            width: { xs: "100%", sm: "350px", md: "320px" },
+            height: "180px",
+            borderRadius: "1rem",
+            objectFit: "cover",
+            overflow: "hidden",
+          }}
+        />
+      </Link>
+
       <CardContent
         sx={{
           background: collors.primry,
@@ -37,7 +42,7 @@ const Vediocard = ({ vedio }) => {
           position: "relative",
         }}
       >
-        <>
+        <Link to={`/vedio/${vedio.id.videoId}`}>
           <Typography variant="subtitle1" fontWeight={"bold"}>
             {vedio?.snippet?.title.slice(0, 35)}
           </Typography>
@@ -47,7 +52,7 @@ const Vediocard = ({ vedio }) => {
           <Typography my={"5px"} sx={{ opacity: ".4" }}>
             {moment(vedio?.snippet?.publishedAt).fromNow()}
           </Typography>
-        </>
+        </Link>
         <Stack
           direction={"row"}
           position={"absolute"}
