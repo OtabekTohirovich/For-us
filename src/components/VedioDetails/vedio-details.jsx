@@ -10,35 +10,36 @@ import {
   Tag,
   Visibility,
 } from "@mui/icons-material";
-import { Loader } from "../";
+import { Loader, Vedios } from "../";
 
 const Vediodetails = () => {
   const { id } = useParams();
-  const [vediosDetail, setVedioDetail] = useState(null);
+  const [vediosDetail, setVedioDetail] = useState([]);
+  const [vediosRelated, setVedioRelated] = useState([]);
   useEffect(() => {
     ApiService.featching(`videos?part=snippet,statistics&id=${id}`).then(
       (data) => setVedioDetail(data.items[0])
     );
+    ApiService.featching(`search?part=snippet&relatedToVideoId=${id}&type=video`).then(
+      (data) => setVedioRelated(data.items)
+    );
   }, [id]);
 
+  console.log(vediosRelated);
   if (!vediosDetail?.snippet) {
     return <Loader />;
   }
 
-  // const {
-  //   snippet: { title, channelId, categoryId, channelTitle, description, thumbnails },
-  //   statistics: { commentCount, likeCount, viewCount },
-  // } = vediosDetail
   return (
     <Box minHeight={"90vh"} mb={10}>
-      <Box display={"flex"}>
-        <Box width={"75%"}>
+      <Box display={"flex"} sx={{ flexDirection: { xs: "column", md: "row" } }}>
+        <Box width={{ xs: "100%", md: "75%"}}>
           <ReactPlayer
             url={`https://www.youtube.com/watch?v=${id}`}
             className="react-player"
             controls
           />
-          {/* {vediosDetail.snippet?.tags.map((item, idx) => (
+          {vediosDetail?.snippet?.tags?.map((item, idx) => (
             <Chip
               label={item}
               key={idx}
@@ -47,9 +48,9 @@ const Vediodetails = () => {
               onDelete={() => {}}
               variant="outlined"
             />
-          ))} */}
+          ))}
           <Typography variant="h5" fontFamily={"bold"} p={2}>
-            {vediosDetail.snippet.title}
+            {vediosDetail?.snippet?.title}
           </Typography>
           <Typography variant="subtitle2" sx={{ opacity: ".7" }} p={2}>
             {vediosDetail.snippet.description}
@@ -109,7 +110,16 @@ const Vediodetails = () => {
             </Stack>
           </Stack>
         </Box>
-        <Box width={"25%"}> suggesdtesk</Box>
+        <Box width={{ xs: "100%", md: "25%" }}
+         px={2}
+         py={{md: 1, xs: 5}}
+         justifyContent={'center'}
+         alignItems='center'
+         overflow={'scroll'}
+         maxHeight={'130vh'}
+         >
+          <Vedios vedios={vediosRelated} />
+        </Box>
       </Box>
     </Box>
   );

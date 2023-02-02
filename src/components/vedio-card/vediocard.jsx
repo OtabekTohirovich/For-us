@@ -53,19 +53,23 @@ const Vediocard = ({ vedio }) => {
             {moment(vedio?.snippet?.publishedAt).fromNow()}
           </Typography>
         </Link>
-        <Stack
-          direction={"row"}
-          position={"absolute"}
-          bottom={"10px"}
-          alignItems={"center"}
-          gap={"5px"}
-        >
-          <Avatar src={vedio?.snippet.thumbnails?.high?.url} />
-          <Typography variant="subtitle2" color={"gray"}>
-            {vedio?.snippet?.channelTitle}
-            <CheckCircle sx={{ fontSize: "12px", color: "gray", ml: "5px" }} />
-          </Typography>
-        </Stack>
+        <Link to={`/channel/${vedio.snippet.channelId}`}>
+          <Stack
+            direction={"row"}
+            position={"absolute"}
+            bottom={"10px"}
+            alignItems={"center"}
+            gap={"5px"}
+          >
+            <Avatar src={vedio?.snippet.thumbnails?.high?.url} />
+            <Typography variant="subtitle2" color={"gray"}>
+              {vedio?.snippet?.channelTitle}
+              <CheckCircle
+                sx={{ fontSize: "12px", color: "gray", ml: "5px" }}
+              />
+            </Typography>
+          </Stack>
+        </Link>
       </CardContent>
     </Card>
   );
