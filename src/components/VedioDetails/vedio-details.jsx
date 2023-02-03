@@ -25,7 +25,6 @@ const Vediodetails = () => {
     ).then((data) => setVedioRelated(data.items));
   }, [id]);
 
-  console.log(vediosRelated);
   if (!vediosDetail?.snippet) {
     return <Loader />;
   }

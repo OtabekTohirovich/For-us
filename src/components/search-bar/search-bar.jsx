@@ -9,7 +9,6 @@ const Searchbar = () => {
   const navigate = useNavigate()
   const submithandler = (e) => {
     e.preventDefault()
-    console.log(value)
    if(value){
     navigate(`/search/${value}`)
    }

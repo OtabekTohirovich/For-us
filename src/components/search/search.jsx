@@ -8,7 +8,6 @@ const Search = () => {
   const [value, setValue] = useState([]);
 
   const { id } = useParams();
-  console.log(id);
   useEffect(() => {
     try {
       ApiService.featching(`search?part=snippet&q=${id}`).then((data) =>
@@ -18,7 +17,6 @@ const Search = () => {
       console.log(error);
     }
   }, [id]);
-  console.log(value);
   return (
     <Box p={2} sx={{hight:'90vh'}}>
       <Container maxWidth={'90%'}>
