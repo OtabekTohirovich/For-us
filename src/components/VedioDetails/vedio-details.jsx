@@ -1,6 +1,6 @@
 import { Avatar, Box, Chip, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ApiService } from "../../api";
 import ReactPlayer from "react-player";
 import {
@@ -20,9 +20,9 @@ const Vediodetails = () => {
     ApiService.featching(`videos?part=snippet,statistics&id=${id}`).then(
       (data) => setVedioDetail(data.items[0])
     );
-    ApiService.featching(`search?part=snippet&relatedToVideoId=${id}&type=video`).then(
-      (data) => setVedioRelated(data.items)
-    );
+    ApiService.featching(
+      `search?part=snippet&relatedToVideoId=${id}&type=video`
+    ).then((data) => setVedioRelated(data.items));
   }, [id]);
 
   console.log(vediosRelated);
@@ -33,7 +33,7 @@ const Vediodetails = () => {
   return (
     <Box minHeight={"90vh"} mb={10}>
       <Box display={"flex"} sx={{ flexDirection: { xs: "column", md: "row" } }}>
-        <Box width={{ xs: "100%", md: "75%"}}>
+        <Box width={{ xs: "100%", md: "75%" }}>
           <ReactPlayer
             url={`https://www.youtube.com/watch?v=${id}`}
             className="react-player"
@@ -91,33 +91,36 @@ const Vediodetails = () => {
             </Stack>
           </Stack>
           <Stack direction={"row"} py={1} px={2}>
-            <Stack
-              direction={"row"}
-              alignItems="center"
-              gap={"5px"}
-              marginTop="5px"
-            >
-              <Avatar
-                alt={vediosDetail.snippet.channelTitle}
-                src={vediosDetail.snippet.thumbnails.default.url}
-              />
-              <Typography variant="subtitle2" color={"gray"}>
-                {vediosDetail.snippet.channelTitle}
-                <CheckCircle
-                  sx={{ fontSize: "12px", color: "gray", ml: "5px" }}
+            <Link to={`/channel/${vediosDetail.snippet.channelId}`}>
+              <Stack
+                direction={"row"}
+                alignItems="center"
+                gap={"5px"}
+                marginTop="5px"
+              >
+                <Avatar
+                  alt={vediosDetail.snippet.channelTitle}
+                  src={vediosDetail.snippet.thumbnails.default.url}
                 />
-              </Typography>
-            </Stack>
+                <Typography variant="subtitle2" color={"gray"}>
+                  {vediosDetail.snippet.channelTitle}
+                  <CheckCircle
+                    sx={{ fontSize: "12px", color: "gray", ml: "5px" }}
+                  />
+                </Typography>
+              </Stack>
+            </Link>
           </Stack>
         </Box>
-        <Box width={{ xs: "100%", md: "25%" }}
-         px={2}
-         py={{md: 1, xs: 5}}
-         justifyContent={'center'}
-         alignItems='center'
-         overflow={'scroll'}
-         maxHeight={'130vh'}
-         >
+        <Box
+          width={{ xs: "100%", md: "25%" }}
+          px={2}
+          py={{ md: 1, xs: 5 }}
+          justifyContent={"center"}
+          alignItems="center"
+          overflow={"scroll"}
+          maxHeight={"130vh"}
+        >
           <Vedios vedios={vediosRelated} />
         </Box>
       </Box>
